@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title> Simple Framebuffer </title>
+    <script src="./js/simple-framebuffer.js"></script>
+    <script src="./js/bresenham.js"></script>
+    <style>
+      body,html { background-color: #000; }
+      #viewport-container canvas { background-color: #fff; }
+    </style>
+  </head>
+  <body>
+    <div id="viewport-container"> </div>
+    <script>
+      var kWidth = 256;
+      var kHeight = 256;
+      var kRadius = 100;
+      var kSpeed = 2*Math.PI / 5000 ; // full circle every 1000ms
+      var kRadsInCircle = 2*Math.PI;
+      var kUpdateRate = 50; // update every 100 milliseconds.
+
+      var $viewport = document.getElementById('viewport-container');
+      var bitmap = new SimpleFramebuffer( kWidth, kHeight, $viewport );
+      var theta = 0;
+
+      window.setInterval( function() {
+          theta += kSpeed * kUpdateRate;
+          while (theta > kRadsInCircle) {
+            theta -= kRadsInCircle;
+          }
+
+          bitmap.clear();
+          bresenhamLine(  bitmap,
+              (kWidth/2), (kHeight/2),
+              (kWidth/2) + (kRadius * Math.cos(theta) ), (kHeight/2) + (kRadius * Math.sin(theta) ),
+              0,255,0,255
+          );
+          bitmap.flush();
+      }, kUpdateRate);
+    </script>
+  </body>
+</html>
