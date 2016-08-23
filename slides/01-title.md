@@ -1,8 +1,1 @@
-Welcome
-
-`$$
-\begin{bmatrix}
-	a & b \\
-	c & d
-\end{bmatrix}
-$$`
+# 3D Software Rendering in Javascript
