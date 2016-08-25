@@ -10,6 +10,8 @@
   </head>
   <body>
     <div id="viewport-container"> </div>
+      <canvas id="viewport">
+      </canvas>
     <script>
       var kWidth = 256;
       var kHeight = 256;
@@ -18,8 +20,7 @@
       var kRadsInCircle = 2*Math.PI;
       var kUpdateRate = 50; // update every 100 milliseconds.
 
-      var $viewport = document.getElementById('viewport-container');
-      var bitmap = new SimpleFramebuffer( kWidth, kHeight, $viewport );
+      var bitmap = new SimpleFramebuffer( kWidth, kHeight, document.getElementById('viewport'));
       var theta = 0;
 
       window.setInterval( function() {
