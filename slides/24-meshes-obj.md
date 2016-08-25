@@ -1,1 +1,0 @@
-## Meshes: Wavefront OBJ 1/3
