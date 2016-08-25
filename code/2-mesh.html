@@ -22,7 +22,6 @@
       bitmap.flush();
       var r = new XMLHttpRequest();
       r.open("GET", "assets/head/head.obj", true);
-      //r.open("GET", "assets/tetra/tetra.obj", true);
       r.onreadystatechange = function () {
         if (r.readyState == 4 && r.status < 400) {
           console.log('Got model!');
