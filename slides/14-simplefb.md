@@ -1,2 +1,2 @@
 <!-- .slide: data-background="#111" -->
-# Framebuffers and how they work
+# Implementing a Simple Framebuffer

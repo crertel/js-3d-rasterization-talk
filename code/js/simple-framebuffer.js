@@ -1,5 +1,5 @@
 function SimpleFramebuffer( width, height, $canvas ) {
-  this._$canvas = $canvas
+  this._$canvas = $canvas;
   this._$canvas.width = this._width = width;
   this._$canvas.height = this._height = height;
   this._ctx = this._$canvas.getContext('2d');
