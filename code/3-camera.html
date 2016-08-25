@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title> Simple Framebuffer </title>
+    <script src="./js/simple-framebuffer.js"></script>
+    <script src="./js/bresenham.js"></script>
+    <script src="./js/model.js"></script>
+    <style>
+      body,html { background-color: #000; }
+      #viewport-container canvas { background-color: #fff; }
+    </style>
+  </head>
+  <body>
+    <div id="viewport-container"> </div>
+      <canvas id="viewport">
+      </canvas>
+    <script>
+      var kWidth = 512;
+      var kHeight = 512;
+      var bitmap = new SimpleFramebuffer( kWidth, kHeight, document.getElementById('viewport'))      
+
+      bitmap.clear();
+      bitmap.flush();
+      var r = new XMLHttpRequest();
+      r.open("GET", "assets/head/head.obj", true);
+      r.onreadystatechange = function () {
+        if (r.readyState == 4 && r.status < 400) {
+          console.log('Got model!');
+          var model = Model.loadFromOBJString(r.responseText);
+          var triBuffer = model.toTriArray();
+          bitmap.clear();
+          for (var f = 0; f < triBuffer.length/24; f++ ){
+            var ax = (triBuffer[24*f + 0]+1) * kWidth/2;
+            var ay = (triBuffer[24*f + 1]+1) * kHeight/2;
+            var bx = (triBuffer[24*f + 8]+1)* kWidth/2;
+            var by = (triBuffer[24*f + 9]+1)* kHeight/2;
+            var cx = (triBuffer[24*f + 16]+1) * kWidth/2;
+            var cy = (triBuffer[24*f + 17]+1) * kHeight/2;
+            bresenhamLine(  bitmap,  ax, ay ,  bx, by , 0,255,0,255  );
+            bresenhamLine(  bitmap,  bx, by ,  cx, cy , 0,255,0,255  );
+            bresenhamLine(  bitmap,  cx, cy ,  ax, ay , 0,255,0,255  );
+          }
+          bitmap.flush();
+        }
+      };
+      r.send();
+    </script>
+  </body>
+</html>
